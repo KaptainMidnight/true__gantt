@@ -8,6 +8,8 @@ class UserProject extends Model
 {
     public $table = 'user_project';
     public $timestamps = false;
+    public $guarded = [];
+    public $fillable = ['*'];
     public function user()
     {
         return $this->belongsTo(UsersData::class);

@@ -7,7 +7,6 @@ use App\Roles;
 use App\UserProject;
 use App\UsersData;
 use Illuminate\Http\Request;
-use PhpParser\Node\Expr\Print_;
 
 class MainController extends Controller
 {
@@ -48,13 +47,21 @@ class MainController extends Controller
         ];
     }
 
-    public function createProject()
+    public function createProject(Request $request)
     {
+        $projects = new Projects([
+            'name' => $request->post('name'),
+            'date_start' => $request->post('date_start'),
+            'date_end' => $request->post('date_end')
+        ]);
+        $roles = new Roles(['name' => $request->post('role_id')]);
+        $roles->save();
+        $projects->save();
         $usersProjects = new UserProject();
-        $usersProjects->role()->associate(Roles::class);
-        $usersProjects->project()->associate(Projects::class);
-        $usersProjects->user()->associate(UsersData::class);
+        $usersProjects->role()->associate($roles);
+        $usersProjects->project()->associate($projects);
         $usersProjects->save();
+        return $usersProjects;
     }
 
     public function projectsList()
