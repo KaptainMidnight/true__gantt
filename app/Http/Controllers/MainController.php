@@ -67,6 +67,7 @@ class MainController extends Controller
             $usersProject->save();
         }
         return $usersProject;
+
     }
 
     public function projectsList()
