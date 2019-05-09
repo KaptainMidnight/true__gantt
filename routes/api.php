@@ -23,3 +23,4 @@ Route::post('createproject', 'Maincontroller@createProject');
 //Route::get('edituser/{id}', 'MainController@editUser');
 Route::delete('remove/{id}', 'MainController@removeUser');
 Route::get('project/{id}', 'MainController@usersProjects');
+Route::post('createrole', 'MainController@createRole');
