@@ -56,8 +56,7 @@ class MainController extends Controller
         $project->date_end = $request->input('project')['date_end'];
         $project->description = $request->input('project')['description'];
         $project->save();
-        foreach ($users as $user)
-        {
+        foreach ($users as $user) {
             $role = Roles::find($user['role_id']);
             $usersss = UsersData::find($user['user_id']);
             $usersProject = new UserProject();
@@ -116,5 +115,13 @@ class MainController extends Controller
             'users' => array_merge($mas)
         ];
         return $response;
+    }
+
+    public function createRole(Request $request)
+    {
+        $role = new Roles();
+        $role->name = $request->post('name');
+        $role->save();
+        return $role;
     }
 }
