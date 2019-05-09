@@ -15,8 +15,9 @@ class Projects extends Model
 {
     protected $table = 'projects';
     protected $fillable = ['*'];
+    public $timestamps = false;
     public function userProjects()
     {
-        return $this->hasMany(UserProject::class, 'role_id', 'id');
+        return $this->hasMany(UserProject::class, 'project_id', 'id');
     }
 }

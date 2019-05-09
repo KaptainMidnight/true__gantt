@@ -4,6 +4,9 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
+/**
+ * @property array|string|null name
+ */
 class Roles extends Model
 {
     protected $fillable = ['*'];

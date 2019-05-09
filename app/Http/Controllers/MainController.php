@@ -49,19 +49,24 @@ class MainController extends Controller
 
     public function createProject(Request $request)
     {
-        $projects = new Projects([
-            'name' => $request->post('name'),
-            'date_start' => $request->post('date_start'),
-            'date_end' => $request->post('date_end')
-        ]);
-        $roles = new Roles(['name' => $request->post('role_id')]);
-        $roles->save();
-        $projects->save();
-        $usersProjects = new UserProject();
-        $usersProjects->role()->associate($roles);
-        $usersProjects->project()->associate($projects);
-        $usersProjects->save();
-        return $usersProjects;
+        $project = new Projects();
+        $users = $request->input('users');
+        $project->name = $request->input('project')['name'];
+        $project->date_start = $request->input('project')['date_start'];
+        $project->date_end = $request->input('project')['date_end'];
+        $project->description = $request->input('project')['description'];
+        $project->save();
+        foreach ($users as $user)
+        {
+            $role = Roles::find($user['role_id']);
+            $usersss = UsersData::find($user['user_id']);
+            $usersProject = new UserProject();
+            $usersProject->role()->associate($role);
+            $usersProject->project()->associate($project);
+            $usersProject->user()->associate($usersss);
+            $usersProject->save();
+        }
+        return $usersProject;
     }
 
     public function projectsList()
