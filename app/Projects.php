@@ -10,6 +10,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property array|mixed|string|null date_start
  * @property array|mixed|string|null date_end
  * @property array|string|null description
+ * @method static findOrFail($id)
  */
 class Projects extends Model
 {
