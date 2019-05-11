@@ -124,4 +124,31 @@ class MainController extends Controller
         $role->save();
         return $role;
     }
+
+    public function rolesList()
+    {
+        $data = [];
+        $roles = Roles::all();
+
+        foreach ($roles as $role) {
+            $data[] = [
+                'id' => $role->id,
+                'name' => $role->name
+            ];
+        }
+
+        return $data;
+    }
+
+    public function editUser(Request $request, $id)
+    {
+        UsersData::find($id)->update([
+            'firstname' => $request->post('firstname'),
+            'lastname' => $request->post('lastname'),
+            'img' => $request->file('photo')->store('storage', 'public')
+        ]);
+        return UsersData::find($id);
+    }
+
+
 }
